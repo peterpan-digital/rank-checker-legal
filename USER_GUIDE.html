@@ -1,731 +1,921 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hướng Dẫn Sử Dụng - Rank Checker</title>
+    <title>User Guide — Rank Checker Extension</title>
     <style>
         :root {
-            --primary: #0d9488;
-            --primary-dark: #0f766e;
-            --accent: #f97316;
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --text-light: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: #334155;
+            --primary: #00c6b8;
+            --primary-dark: #009e92;
+            --primary-glow: rgba(0, 198, 184, 0.15);
+            --accent: #a855f7;
+            --accent-glow: rgba(168, 85, 247, 0.15);
+            --warn: #f59e0b;
+            --warn-glow: rgba(245, 158, 11, 0.15);
+            --bg: #080e1a;
+            --bg-card: #0f1829;
+            --bg-card-hover: #152033;
+            --text: #e2e8f0;
+            --text-muted: #8899b4;
+            --text-dim: #4a5a72;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-bright: rgba(0, 198, 184, 0.25);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.7;
-            color: #334;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text);
+            background: var(--bg);
             min-height: 100vh;
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 24px;
+            padding: 40px 24px 80px;
         }
 
-        /* Hero Section */
+        /* ── Hero ── */
         .hero {
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(180deg, rgba(13,148,136,0.15) 0%, transparent 100%);
-            border-radius: 24px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(13,148,136,0.3);
+            padding: 64px 24px 48px;
+            margin-bottom: 48px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0,198,184,0.12) 0%, transparent 70%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 2.8em;
-            font-weight: 700;
-            color: var(--text-light);
+            font-size: 3em;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text);
             margin-bottom: 16px;
-            letter-spacing: -0.02em;
+            line-height: 1.1;
         }
 
-        .hero h1 span {
-            color: var(--primary);
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 560px;
+            margin: 0 auto 28px;
         }
 
-        .version-badge {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 6px 16px;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.85em;
+            font-size: 0.78rem;
             font-weight: 600;
-            margin-top: 20px;
+            letter-spacing: 0.3px;
         }
 
-        /* Table of Contents */
+        .badge-version {
+            background: var(--primary-glow);
+            border: 1px solid var(--border-bright);
+            color: var(--primary);
+        }
+
+        /* ── TOC ── */
         .toc {
             background: var(--bg-card);
             border-radius: 16px;
-            padding: 28px;
+            padding: 28px 32px;
             margin-bottom: 40px;
             border: 1px solid var(--border);
         }
 
-        .toc h2 {
-            color: var(--primary);
-            font-size: 1.3em;
+        .toc-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
             margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .toc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 6px;
         }
 
         .toc a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
-            padding: 10px 14px;
+            padding: 9px 12px;
             border-radius: 8px;
-            background: rgba(255,255,255,0.05);
-            transition: all 0.2s;
-            font-size: 0.95em;
-        }
-
-        .toc a:hover {
-            background: var(--primary);
-            transform: translateX(4px);
-        }
-
-        .toc a .num {
-            color: var(--primary);
-            font-weight: 600;
-            margin-right: 6px;
-        }
-
-        /* Section Styles */
-        .section {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 28px;
-            border: 1px solid var(--border);
-        }
-
-        .section h2 {
-            color: var(--text-light);
-            font-size: 1.6em;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section h2 .icon {
-            width: 36px;
-            height: 36px;
-            background: var(--primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1em;
-        }
-
-        .section h3 {
-            color: var(--primary);
-            font-size: 1.15em;
-            margin: 24px 0 12px;
-        }
-
-        .section p, .section li {
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .section ul, .section ol {
-            margin-left: 24px;
-            margin-bottom: 16px;
-        }
-
-        .section li {
-            margin-bottom: 8px;
-        }
-
-        /* Image Styles */
-        .section-image {
-            width: 100%;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 1px solid var(--border);
-        }
-
-        .image-caption {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85em;
-            margin-top: -12px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        /* Highlight Boxes */
-        .highlight {
-            background: linear-gradient(135deg, rgba(13,148,136,0.2) 0%, rgba(13,148,136,0.1) 100%);
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            border-radius: 0 12px 12px 0;
-            margin: 20px 0;
-        }
-
-        .highlight.orange {
-            background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(249,115,22,0.1) 100%);
-            border-left-color: var(--accent);
-        }
-
-        .highlight h4 {
-            color: var(--text-light);
-            font-size: 1.1em;
-            margin-bottom: 8px;
+            font-size: 0.9em;
+            transition: all 0.18s;
             display: flex;
             align-items: center;
             gap: 8px;
+            border: 1px solid transparent;
         }
 
-        /* Steps */
+        .toc a:hover {
+            background: var(--primary-glow);
+            border-color: var(--border-bright);
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .toc a .num {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.8em;
+            min-width: 20px;
+        }
+
+        /* ── Section ── */
+        .section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            scroll-margin-top: 20px;
+        }
+
+        .section:hover {
+            border-color: rgba(255,255,255,0.10);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--primary-glow);
+            border: 1px solid var(--border-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15em;
+            flex-shrink: 0;
+        }
+
+        .section h2 {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 24px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.82rem;
+        }
+
+        .section p {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .section ul, .section ol {
+            margin-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        .section li {
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .section li strong {
+            color: var(--text);
+        }
+
+        /* ── Steps ── */
+        .steps { display: flex; flex-direction: column; gap: 14px; }
+
         .step {
             display: flex;
-            gap: 16px;
-            margin: 16px 0;
+            gap: 14px;
             align-items: flex-start;
         }
 
         .step-num {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 700;
+            color: #000;
+            font-weight: 800;
+            font-size: 0.82em;
             flex-shrink: 0;
+            margin-top: 2px;
         }
 
-        .step-content {
-            flex: 1;
-        }
+        .step-content { flex: 1; }
+        .step-content strong { color: var(--text); }
+        .step-content ul { margin-top: 8px; }
 
-        .step-content strong {
-            color: var(--text-light);
-        }
-
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        /* ── Callouts ── */
+        .callout {
+            padding: 18px 20px;
             border-radius: 12px;
-            overflow: hidden;
+            margin: 18px 0;
+            border-left: 3px solid;
         }
 
-        th {
-            background: var(--primary);
-            color: white;
-            padding: 14px 16px;
-            text-align: left;
-            font-weight: 600;
+        .callout-info {
+            background: var(--primary-glow);
+            border-color: var(--primary);
         }
 
-        td {
+        .callout-warn {
+            background: var(--warn-glow);
+            border-color: var(--warn);
+        }
+
+        .callout-purple {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+
+        .callout p { color: var(--text-muted); margin: 0; font-size: 0.93em; }
+        .callout ul { margin-top: 8px; }
+        .callout li { color: var(--text-muted); font-size: 0.93em; }
+
+        /* ── Mode Cards ── */
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+            margin: 18px 0;
+        }
+
+        .mode-card {
             background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .mode-card:hover { border-color: rgba(255,255,255,0.12); }
+
+        .mode-card.pro-only { border-color: rgba(168,85,247,0.25); }
+        .mode-card.pro-only:hover { border-color: var(--accent); }
+
+        .mode-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .badge-free { background: rgba(0,198,184,0.15); color: var(--primary); }
+        .badge-pro  { background: rgba(168,85,247,0.15); color: var(--accent); }
+
+        .mode-card h4 {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .mode-card p { color: var(--text-muted); font-size: 0.88em; margin: 0; }
+
+        /* ── Plans Table ── */
+        .plans-table { width: 100%; border-collapse: collapse; margin: 18px 0; }
+
+        .plans-table th {
+            background: rgba(0,198,184,0.12);
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-bright);
+        }
+
+        .plans-table td {
+            padding: 11px 16px;
             border-bottom: 1px solid var(--border);
             color: var(--text-muted);
+            font-size: 0.92em;
         }
 
-        tr:hover td {
-            background: rgba(255,255,255,0.06);
-        }
+        .plans-table td:first-child { color: var(--text); font-weight: 500; }
+        .plans-table tr:last-child td { border-bottom: none; }
+        .plans-table tr:hover td { background: rgba(255,255,255,0.025); }
+        .check { color: var(--primary); font-weight: 700; }
+        .cross { color: #ef4444; }
 
-        .check {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .cross {
-            color: #ef4444;
-        }
-
-        /* FAQ */
-        .faq-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 12px 0;
-            border: 1px solid var(--border);
-        }
-
-        .faq-item strong {
-            color: var(--text-light);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .faq-item .answer {
-            color: var(--text-muted);
-            padding-left: 16px;
-            border-left: 2px solid var(--primary);
-        }
-
-        /* Trial Section */
+        /* ── Trial Box ── */
         .trial-box {
-            background: linear-gradient(135deg, rgba(251,191,36,0.15) 0%, rgba(251,191,36,0.05) 100%);
-            border: 2px solid rgba(251,191,36,0.4);
+            background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(251,191,36,0.04));
+            border: 1px solid rgba(251,191,36,0.3);
             border-radius: 16px;
             padding: 28px;
-            margin: 24px 0;
+            margin: 20px 0;
             text-align: center;
         }
 
         .trial-box h4 {
             color: #fbbf24;
-            font-size: 1.4em;
-            margin-bottom: 12px;
+            font-size: 1.25em;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
-        .trial-box p {
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
+        .trial-box p { color: var(--text-muted); margin-bottom: 20px; }
 
         .trial-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
         }
 
-        .trial-feature {
-            background: rgba(251,191,36,0.1);
-            padding: 12px;
+        .trial-feat {
+            background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.2);
             border-radius: 10px;
-            color: var(--text-light);
-            font-size: 0.9em;
+            padding: 14px 10px;
+            text-align: center;
         }
 
-        .trial-feature span {
+        .trial-feat .val {
             display: block;
-            font-size: 1.4em;
+            font-size: 1.6em;
             color: #fbbf24;
-            font-weight: 700;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
         }
 
-        /* Footer */
+        .trial-feat .label {
+            font-size: 0.78em;
+            color: var(--text-muted);
+        }
+
+        /* ── Payment Methods ── */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 18px 0;
+        }
+
+        .payment-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .payment-card.vn { border-color: rgba(0,198,184,0.25); }
+        .payment-card.intl { border-color: rgba(168,85,247,0.25); }
+
+        .payment-card h4 {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .payment-card p { font-size: 0.88em; color: var(--text-muted); margin: 0; }
+
+        .payment-price {
+            font-size: 1.3em;
+            font-weight: 800;
+            margin: 10px 0 4px;
+        }
+
+        .payment-card.vn .payment-price { color: var(--primary); }
+        .payment-card.intl .payment-price { color: var(--accent); }
+
+        /* ── FAQ ── */
+        .faq-item {
+            background: rgba(255,255,255,0.025);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            transition: border-color 0.2s;
+        }
+
+        .faq-item:hover { border-color: rgba(255,255,255,0.10); }
+
+        .faq-q {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.97em;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+            padding-left: 14px;
+            border-left: 2px solid var(--primary);
+            font-size: 0.92em;
+            line-height: 1.6;
+        }
+
+        /* ── Footer ── */
         .footer {
             text-align: center;
             padding: 40px 20px;
-            color: var(--text-muted);
+            color: var(--text-dim);
             border-top: 1px solid var(--border);
             margin-top: 40px;
+            font-size: 0.88em;
         }
 
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
+        .footer a { color: var(--primary); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        .footer-links { margin: 16px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
         code {
-            background: rgba(255,255,255,0.1);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-family: monospace;
+            background: rgba(255,255,255,0.08);
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
             color: var(--primary);
-            font-size: 0.9em;
+            font-size: 0.88em;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2em;
-            }
-
-            .section {
-                padding: 24px 20px;
-            }
-
-            .toc-grid {
-                grid-template-columns: 1fr;
-            }
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.2em; }
+            .section { padding: 24px 20px; }
+            .toc { padding: 20px; }
+            .toc-grid { grid-template-columns: 1fr; }
+            .mode-grid { grid-template-columns: 1fr; }
+            .payment-grid { grid-template-columns: 1fr; }
+            .trial-features { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
+
         <!-- Hero -->
         <div class="hero">
-            <h1>Rank <span>Checker</span></h1>
-            <p>Công cụ theo dõi thứ hạng từ khóa trên Google. Đơn giản, chính xác, mạnh mẽ.</p>
-            <span class="version-badge">v1.1.0 — Đã phát hành</span>
+            <div class="hero-eyebrow">Chrome Extension</div>
+            <h1>Rank <em>Checker</em><br>User Guide</h1>
+            <p>Everything you need to know — from first install to advanced captcha automation and analytics.</p>
+            <span class="badge badge-version">v1.1.7</span>
         </div>
 
-        <!-- Table of Contents -->
+        <!-- TOC -->
         <div class="toc">
-            <h2>📑 Mục Lục</h2>
+            <div class="toc-title">Table of Contents</div>
             <div class="toc-grid">
-                <a href="#setup"><span class="num">1.</span> Cài đặt & Thiết lập</a>
-                <a href="#interface"><span class="num">2.</span> Giao diện</a>
-                <a href="#modes"><span class="num">3.</span> Chế độ kiểm tra</a>
-                <a href="#settings"><span class="num">4.</span> Cài đặt nâng cao</a>
-                <a href="#performance"><span class="num">5.</span> Hiệu suất</a>
-                <a href="#incognito"><span class="num">6.</span> Incognito & Tracking</a>
-                <a href="#captchas"><span class="num">7.</span> Xử lý CAPTCHA</a>
-                <a href="#analytics"><span class="num">8.</span> Lịch sử & Xuất dữ liệu</a>
-                <a href="#plans"><span class="num">9.</span> Bảng giá</a>
-                <a href="#trial"><span class="num">10.</span> Dùng thử 30 ngày</a>
-                <a href="#faq"><span class="num">11.</span> Hỏi đáp</a>
+                <a href="#setup"><span class="num">1.</span> Installation & Setup</a>
+                <a href="#interface"><span class="num">2.</span> Interface Overview</a>
+                <a href="#modes"><span class="num">3.</span> Execution Modes</a>
+                <a href="#settings"><span class="num">4.</span> Advanced Settings</a>
+                <a href="#performance"><span class="num">5.</span> Performance & Best Practices</a>
+                <a href="#incognito"><span class="num">6.</span> Incognito Auto-Tracking</a>
+                <a href="#captcha"><span class="num">7.</span> Handling CAPTCHAs</a>
+                <a href="#analytics"><span class="num">8.</span> History & Exports</a>
+                <a href="#plans"><span class="num">9.</span> Free vs. Pro Plans</a>
+                <a href="#trial"><span class="num">10.</span> Pro Trial & Upgrade</a>
+                <a href="#faq"><span class="num">11.</span> FAQ & Troubleshooting</a>
             </div>
         </div>
 
-        <!-- Section 1: Setup -->
+        <!-- 1. Installation -->
         <div class="section" id="setup">
-            <h2><span class="icon">🚀</span> 1. Cài đặt & Thiết lập</h2>
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <h2>1. Installation &amp; Setup</h2>
+            </div>
 
-            <div class="step">
-                <span class="step-num">1</span>
-                <div class="step-content">
-                    <strong>Cài đặt Extension:</strong> Thêm trực tiếp từ <a href="https://chrome.google.com/webstore" target="_blank" style="color:var(--primary)">Chrome Web Store</a>.
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <div class="step-content">
+                        <strong>Install from Chrome Web Store</strong> — search for "Rank Checker" or follow the direct store link. Click <em>Add to Chrome</em>.
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <div class="step-content">
+                        <strong>Pin to your toolbar</strong> — click the puzzle icon in Chrome, find <strong>Rank Checker</strong>, and click the pin icon to keep it visible.
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <div class="step-content">
+                        <strong>Enable Incognito access</strong> (highly recommended):
+                        <ul>
+                            <li>Navigate to <code>chrome://extensions/</code></li>
+                            <li>Find Rank Checker → click <strong>Details</strong></li>
+                            <li>Toggle <strong>"Allow in Incognito"</strong> → ON</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <div class="step-content">
+                        <strong>Create a free account</strong> — click <em>Login</em> inside the extension, then <em>Register</em>. Verify your email to activate your 30-day Pro Trial automatically.
+                    </div>
                 </div>
             </div>
 
-            <div class="step">
-                <span class="step-num">2</span>
-                <div class="step-content">
-                    <strong>Ghim lên Toolbar:</strong> Click icon puzzle 🧩 trên Chrome, tìm <strong>Rank Checker</strong>, click <strong>pin icon</strong> 📌 để ghim.
-                </div>
-            </div>
-
-            <div class="step">
-                <span class="step-num">3</span>
-                <div class="step-content">
-                    <strong>Bật Incognito (Rất khuyến nghị):</strong>
-                    <ul style="margin-top:8px">
-                        <li>Vào <code>chrome://extensions/</code></li>
-                        <li>Tìm "Rank Checker" → click <strong>Details</strong></li>
-                        <li>Bật <strong>"Allow in Incognito"</strong> → ON</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="highlight orange">
-                <h4>💡 Tại sao phải bật Incognito?</h4>
-                <p style="margin:0">Cho phép extension tự động theo dõi kết quả tìm kiếm thủ công mà không dùng dữ liệu cached, đảm bảo kết quả chính xác nhất.</p>
+            <div class="callout callout-info">
+                <div class="callout-title">Why enable Incognito?</div>
+                <p>Incognito searches are not personalized by your Chrome history or Google account — they reflect the "true" organic SERP position. Auto-tracking only works in Incognito to prevent skewed data.</p>
             </div>
         </div>
 
-        <!-- Section 2: Interface -->
+        <!-- 2. Interface -->
         <div class="section" id="interface">
-            <h2><span class="icon">🎨</span> 2. Giao diện</h2>
+            <div class="section-header">
+                <div class="section-icon">🎨</div>
+                <h2>2. Interface Overview</h2>
+            </div>
 
-            <img src="images/extension-interface.png" alt="Rank Checker Interface" class="section-image" loading="lazy">
-            <p class="image-caption">Giao diện chính với thiết kế Hologram/Neon Glass hiện đại</p>
+            <p>The extension opens as a side panel with a Hologram/Neon Glass design. Key areas:</p>
 
-            <h3>Phần nhập liệu</h3>
+            <h3>Mode Selector</h3>
+            <p>Three buttons at the top — <strong>Sequential</strong>, <strong>Batch</strong>, <strong>Pipeline</strong> — switch the rank-checking engine. Pro-only modes show a lock badge for Free users.</p>
+
+            <h3>Core Inputs</h3>
             <ul>
-                <li><strong>Target Domains:</strong> Nhập tên miền cần theo dõi (VD: <code>example.com</code>, <code>shop.vn</code>). Mỗi dòng một tên miền. Extension dùng logic "First-Match" — nếu bất kỳ tên miền nào xếp hạng, sẽ ghi nhận vị trí cao nhất.</li>
-                <li><strong>Keywords:</strong> Nhập từ khóa cần kiểm tra, <strong>mỗi dòng một từ khóa</strong>. Bộ đếm sẽ hiển thị tổng số từ khóa đang chờ.</li>
+                <li><strong>Target Domains:</strong> Enter one domain per line (e.g. <code>example.com</code>, <code>shop.vn</code>). The extension uses first-match logic — whichever of your listed domains ranks highest is recorded.</li>
+                <li><strong>Keywords:</strong> One keyword per line. A live counter shows the total queue size.</li>
+                <li><strong>Presets:</strong> Save and load keyword sets with the <em>Save</em> button for repeated checks.</li>
+                <li><strong>Import:</strong> Drag-and-drop or click to upload a <code>.csv</code> or <code>.txt</code> file to bulk-load keywords.</li>
             </ul>
 
-            <h3>Bảng kết quả</h3>
+            <h3>Results Dashboard</h3>
             <ul>
-                <li><strong>Stat Cards:</strong> Lọc bảng nhanh bằng cách click <code>Total</code>, <code>Found</code>, <code>Not Found</code>, hoặc <code>Captcha</code></li>
-                <li><strong>Results Table:</strong> Hiển thị Từ khóa, Vị trí, Domain khớp, và URL trên Google SERP</li>
-                <li><strong>Action Buttons:</strong> Dùng <code>Re-check Failed</code> để thử lại từ khóa lỗi, hoặc <code>Export</code> để lưu dữ liệu</li>
+                <li><strong>Stat Cards:</strong> Click <code>Total</code>, <code>Found</code>, <code>Not Found</code>, or <code>Captcha</code> to filter the table instantly.</li>
+                <li><strong>Results Table:</strong> Shows Keyword, Rank, matched Domain, and the exact URL found on the SERP. Click column headers to sort.</li>
+                <li><strong>Retry Failed:</strong> Re-check only keywords that returned an error without restarting the full queue.</li>
             </ul>
         </div>
 
-        <!-- Section 3: Modes -->
+        <!-- 3. Modes -->
         <div class="section" id="modes">
-            <h2><span class="icon">⚡</span> 3. Chế độ kiểm tra</h2>
-
-            <img src="images/execution-modes.png" alt="Execution Modes" class="section-image" loading="lazy">
-            <p class="image-caption">Ba chế độ thực thi: Sequential, Batch, Pipeline</p>
-
-            <div class="highlight">
-                <h4>🔄 Sequential Mode (An toàn — Free & Pro)</h4>
-                <p>Kiểm tra từ khóa lần lượt từng cái trong một tab nền. Ít khả năng bị Google chặn, phù hợp với người dùng Free.</p>
+            <div class="section-header">
+                <div class="section-icon">⚡</div>
+                <h2>3. Execution Modes</h2>
             </div>
 
-            <div class="highlight orange">
-                <h4>🚀 Batch Mode (Nhanh — Pro Only)</h4>
-                <p>Kiểm tra nhiều từ khóa cùng lúc bằng cách mở nhiều tabs (tối đa 25 tabs song song). Tăng tốc độ nhưng có thể gặp CAPTCHA.</p>
+            <p>Choose the right engine for your use case:</p>
+
+            <div class="mode-grid">
+                <div class="mode-card">
+                    <span class="mode-badge badge-free">Free &amp; Pro</span>
+                    <h4>Sequential</h4>
+                    <p>Checks keywords one at a time in a single background tab. Safest against Google anti-bot detection. Best for daily tracking.</p>
+                </div>
+                <div class="mode-card pro-only">
+                    <span class="mode-badge badge-pro">Pro Only</span>
+                    <h4>Batch</h4>
+                    <p>Opens up to 25 tabs in parallel to check keywords simultaneously. Significantly faster but increases CAPTCHA probability.</p>
+                </div>
+                <div class="mode-card pro-only">
+                    <span class="mode-badge badge-pro">Pro Only</span>
+                    <h4>Pipeline</h4>
+                    <p>Fully automated workflow with CapSolver integration. Checks keywords and resolves Google CAPTCHAs automatically — no manual intervention needed.</p>
+                </div>
             </div>
 
-            <div class="highlight">
-                <h4>🤖 Pipeline Mode (Tự động — Pro Only)</h4>
-                <p>Quy trình tự động hoàn toàn tích hợp CapSolver. Kiểm tra từ khóa và tự động giải CAPTCHA Google mà không cần can thiệp thủ công.</p>
+            <div class="callout callout-info">
+                <div class="callout-title">Captcha Tab Resume (v1.1.7)</div>
+                <p>When a CAPTCHA is solved, Rank Checker now reuses the solved tab and continues from the current SERP page — no restart from page 1. This means fewer duplicate requests and lower CAPTCHA re-trigger risk.</p>
             </div>
         </div>
 
-        <!-- Section 4: Settings -->
+        <!-- 4. Settings -->
         <div class="section" id="settings">
-            <h2><span class="icon">⚙️</span> 4. Cài đặt nâng cao</h2>
+            <div class="section-header">
+                <div class="section-icon">⚙️</div>
+                <h2>4. Advanced Settings</h2>
+            </div>
 
-            <img src="images/device-simulation.png" alt="Device Simulation" class="section-image" loading="lazy">
-            <p class="image-caption">Mô phỏng thiết bị: Desktop, Mobile (iOS/Android), Tablet</p>
+            <p>Click <strong>Quick Settings</strong> in the panel to configure:</p>
 
-            <h3>Quick Settings Panel</h3>
+            <h3>Search Depth</h3>
+            <p>Controls how many Google results pages are scanned per keyword: <strong>Top 10</strong>, <strong>Top 20</strong>, <strong>Top 50</strong>, or <strong>Top 100</strong>. A depth of 10 checks only the first page; 100 checks up to 10 pages.</p>
+
+            <h3>Device Type (Pro)</h3>
+            <p>Choose <strong>Desktop</strong> (default), <strong>Mobile (iOS / Android)</strong>, or <strong>Tablet</strong>. The extension overrides the browser User-Agent to simulate each device accurately, giving you device-specific ranking data.</p>
+
+            <h3>Advanced Settings Page</h3>
+            <p>Click <em>Advanced Settings</em> to configure:</p>
             <ul>
-                <li><strong>Search Depth:</strong> Chọn độ sâu tìm kiếm (Top 10, 20, 50, hoặc 100)</li>
-                <li><strong>Device Type:</strong> Mặc định là <strong>Desktop</strong>. Người dùng Pro có thể chuyển sang <strong>Mobile (iOS/Android)</strong> hoặc <strong>Tablet</strong></li>
-                <li><strong>Google Domain & Language:</strong> Chuyển đổi vùng Google (VD: <code>google.com.vn</code>, <code>google.co.uk</code>) và ngôn ngữ tìm kiếm</li>
+                <li><strong>Google Domain:</strong> Switch between regional Google indexes (<code>google.com</code>, <code>google.com.vn</code>, <code>google.co.uk</code>, etc.)</li>
+                <li><strong>Search Language:</strong> Set the <code>hl</code> parameter to control the language of results returned.</li>
             </ul>
         </div>
 
-        <!-- Section 5: Performance -->
+        <!-- 5. Performance -->
         <div class="section" id="performance">
-            <h2><span class="icon">📊</span> 5. Hiệu suất & Best Practices</h2>
-
-            <div class="highlight">
-                <h4>⚡ Độ sâu tối ưu: Top 10 đến Top 20</h4>
-                <p>Extension hoạt động tốt nhất và nhanh nhất khi kiểm tra thứ hạng trong Top 10 hoặc Top 20. Nếu domain của bạn xuất hiện ở trang 1 hoặc 2, chỉ mất vài giây mỗi từ khóa.</p>
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2>5. Performance &amp; Best Practices</h2>
             </div>
 
-            <div class="highlight orange">
-                <h4>🐢 Kiểm tra sâu: Top 50 đến Top 100</h4>
-                <p>Nếu đặt Search Depth là 100, extension có thể phải duyệt qua 10 trang Google nếu domain không được tìm thấy sớm.</p>
-                <ul style="margin-top:12px">
-                    <li><strong>Ảnh hưởng:</strong> Kiểm tra thứ hạng ngoài Top 20 sẽ chậm hơn đáng kể (10-30 giây/từ khóa)</li>
-                    <li><strong>Khuyến nghị:</strong> Chỉ đặt depth 100 khi khám phá ban đầu. Theo dõi hàng ngày nên giới hạn ở 20 hoặc 50 để tăng tốc và giảm CAPTCHA.</li>
-                </ul>
+            <div class="callout callout-info">
+                <div class="callout-title">Optimal depth: Top 10 – Top 20</div>
+                <p>If your domain ranks on the first or second page, each keyword completes in seconds. This is the recommended setting for daily monitoring.</p>
             </div>
+
+            <div class="callout callout-warn">
+                <div class="callout-title">Deep checks: Top 50 – Top 100</div>
+                <p>Scanning 10 pages per keyword takes 10–30 seconds each and significantly increases CAPTCHA risk. Use deep checks only for initial discovery runs, not routine tracking.</p>
+            </div>
+
+            <h3>General Tips</h3>
+            <ul>
+                <li>Run Sequential mode for consistent daily tracking — it is the least detectable.</li>
+                <li>Use Batch mode when you need results quickly and can tolerate occasional CAPTCHAs.</li>
+                <li>Pipeline mode (CapSolver required) is best for large unattended keyword sets.</li>
+                <li>Keep keyword lists focused — checking 50 targeted terms daily is more valuable than 500 loosely related ones weekly.</li>
+            </ul>
         </div>
 
-        <!-- Section 6: Incognito -->
+        <!-- 6. Incognito -->
         <div class="section" id="incognito">
-            <h2><span class="icon">🔒</span> 6. Incognito & Manual Search Tracking</h2>
+            <div class="section-header">
+                <div class="section-icon">🔒</div>
+                <h2>6. Incognito Auto-Tracking</h2>
+            </div>
 
-            <p>Tính năng độc đáo của extension này là <strong>Background Auto-Tracking</strong>:</p>
-            <ul>
-                <li>Khi bạn tìm kiếm thủ công một từ khóa trên Google trong <strong>Incognito window</strong>, content script của extension sẽ âm thầm phân tích kết quả và lưu vào lịch sử</li>
-                <li><strong>Tại sao dùng Incognito?</strong> Tìm kiếm ở chế độ thường thường cho kết quả personalized dựa trên lịch sử Chrome và Google account đã đăng nhập. Incognito đảm bảo SERP sạch, không cá nhân hóa, phản ánh thứ hạng "thực"</li>
-            </ul>
+            <p>Rank Checker includes passive <strong>background auto-tracking</strong>: whenever you manually search on Google in an Incognito window, the extension silently parses the SERP and saves the result to your history — no separate check needed.</p>
 
-            <div class="highlight orange">
-                <p style="margin:0"><strong>Chú ý:</strong> Đảm bảo đã bật "Allow in Incognito" trong Chrome Extension settings để tính năng này hoạt động.</p>
+            <h3>Why Incognito only?</h3>
+            <p>Normal Chrome searches are personalized based on your Google account, browsing history, and location. Incognito mode bypasses personalization, producing the same unpersonalized SERP that most of your audience sees — the "true" organic rank.</p>
+
+            <div class="callout callout-warn">
+                <div class="callout-title">Required: Allow in Incognito</div>
+                <p>Go to <code>chrome://extensions/</code> → Rank Checker → Details → toggle <strong>Allow in Incognito</strong> to ON. Without this, auto-tracking will not function.</p>
             </div>
         </div>
 
-        <!-- Section 7: CAPTCHAs -->
-        <div class="section" id="captchas">
-            <h2><span class="icon">🛡️</span> 7. Xử lý CAPTCHAs</h2>
+        <!-- 7. CAPTCHAs -->
+        <div class="section" id="captcha">
+            <div class="section-header">
+                <div class="section-icon">🛡️</div>
+                <h2>7. Handling CAPTCHAs</h2>
+            </div>
 
-            <p>Google bảo vệ search engine khỏi các truy vấn tự động. Dưới đây là cách Rank Checker xử lý:</p>
+            <p>Google detects automated queries and may serve a CAPTCHA challenge (<code>ipv4.google.com/sorry</code>). Rank Checker handles this automatically:</p>
+
             <ul>
-                <li><strong>Detection:</strong> Nếu Google throw CAPTCHA (<code>ipv4.google.com/sorry</code>), extension tự động phát hiện và tạm dừng hàng đợi</li>
-                <li><strong>Auto-Focus:</strong> Extension sẽ tự động đưa tab CAPTCHA lên màn hình</li>
-                <li><strong>Manual Resolution (Sequential/Batch):</strong> Đơn giản giải puzzle (click vào hình ảnh). Sau khi giải xong, extension sẽ xác minh (chờ 2 lần kiểm tra liên tiếp) và <strong>tự động tiếp tục</strong> xử lý từ khóa</li>
-                <li><strong>Automated Resolution:</strong> Nếu bạn là Pro user dùng <strong>Pipeline Mode</strong>, extension sẽ giao tiếp với CapSolver để bypass CAPTCHA tự động</li>
+                <li><strong>Detection:</strong> The extension instantly detects the CAPTCHA page and pauses the active queue.</li>
+                <li><strong>Auto-Focus:</strong> The CAPTCHA tab is automatically brought to the foreground so you can solve it immediately.</li>
+                <li><strong>Resume (Sequential / Batch):</strong> Solve the puzzle manually. The extension monitors for two consecutive clean checks, then automatically resumes — continuing from where the CAPTCHA occurred, not from the beginning of the queue.</li>
+                <li><strong>Automated (Pipeline):</strong> CapSolver handles the CAPTCHA entirely in the background. Requires an active CapSolver API key configured in extension settings.</li>
             </ul>
+
+            <div class="callout callout-purple">
+                <div class="callout-title">Smart resume after solve</div>
+                <p>Since v1.1.7, the solved tab is reused rather than closed and reopened. If a CAPTCHA appeared on page 3, the check resumes from page 3 — not page 1. This reduces duplicate requests and lowers re-trigger risk.</p>
+            </div>
         </div>
 
-        <!-- Section 8: Analytics -->
+        <!-- 8. Analytics -->
         <div class="section" id="analytics">
-            <h2><span class="icon">📈</span> 8. Lịch sử, Analytics & Xuất dữ liệu</h2>
+            <div class="section-header">
+                <div class="section-icon">📈</div>
+                <h2>8. History &amp; Exports</h2>
+            </div>
 
-            <p>Truy cập dashboard bằng cách click <strong>Chart Icon 📊</strong> ở góc trên bên phải của extension header.</p>
+            <p>Click the <strong>clock icon</strong> in the extension header to open the History dashboard.</p>
 
+            <h3>Ranking Trends</h3>
+            <p>Line charts show your keyword's position over time. The dashboard separates <strong>Desktop</strong> and <strong>Mobile</strong> history so you can compare device-specific trends side by side.</p>
+
+            <h3>Exporting Data</h3>
             <ul>
-                <li><strong>Device-Aware Trends:</strong> Xem biểu đồ đường thể hiện progression thứ hạng theo thời gian. Dashboard phân tách dữ liệu để so sánh Desktop vs Mobile history</li>
-                <li><strong>Exporting Data:</strong> Trong results view toolbar:
-                    <ul>
-                        <li>Click <strong>Copy</strong> để copy nhanh tất cả kết quả vào clipboard</li>
-                        <li>Click <strong>Export ▾</strong> để chọn CSV (All/Selected/Filtered) hoặc XLSX format</li>
-                    </ul>
-                </li>
+                <li><strong>Copy:</strong> One-click copy of all visible results to the clipboard.</li>
+                <li><strong>Export ▾ → CSV:</strong> Three scopes available — All results, Selected rows only, or Filtered rows only.</li>
+                <li><strong>Export ▾ → XLSX:</strong> Full results exported as an Excel-compatible spreadsheet.</li>
             </ul>
+
+            <div class="callout callout-info">
+                <div class="callout-title">Tip: Filter then export</div>
+                <p>Click a stat card (e.g. <em>Not Found</em>) to filter the table, then use <em>CSV — Filtered</em> to export only those rows. Useful for targeted re-analysis.</p>
+            </div>
         </div>
 
-        <!-- Section 9: Plans -->
+        <!-- 9. Plans -->
         <div class="section" id="plans">
-            <h2><span class="icon">💳</span> 9. Bảng giá</h2>
+            <div class="section-header">
+                <div class="section-icon">💳</div>
+                <h2>9. Free vs. Pro Plans</h2>
+            </div>
 
-            <table>
+            <table class="plans-table">
                 <thead>
                     <tr>
-                        <th>Tính năng</th>
+                        <th>Feature</th>
                         <th>Free</th>
-                        <th>Pro Trial (30 ngày)</th>
+                        <th>Pro Trial (30 days)</th>
                         <th>Pro</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Keyword Quota</strong></td>
-                        <td>10 / ngày</td>
-                        <td>Không giới hạn</td>
-                        <td>Không giới hạn</td>
+                        <td>Keyword Quota</td>
+                        <td>10 / day</td>
+                        <td class="check">Unlimited</td>
+                        <td class="check">Unlimited</td>
                     </tr>
                     <tr>
-                        <td><strong>Chế độ kiểm tra</strong></td>
-                        <td>Sequential</td>
-                        <td>Sequential, Batch, Pipeline</td>
-                        <td>Sequential, Batch, Pipeline</td>
+                        <td>Execution Modes</td>
+                        <td>Sequential only</td>
+                        <td class="check">Sequential, Batch, Pipeline</td>
+                        <td class="check">Sequential, Batch, Pipeline</td>
                     </tr>
                     <tr>
-                        <td><strong>Mô phỏng thiết bị</strong></td>
-                        <td>Desktop</td>
-                        <td>Desktop, Mobile, Tablet</td>
-                        <td>Desktop, Mobile, Tablet</td>
+                        <td>Device Simulation</td>
+                        <td>Desktop only</td>
+                        <td class="check">Desktop, Mobile, Tablet</td>
+                        <td class="check">Desktop, Mobile, Tablet</td>
                     </tr>
                     <tr>
-                        <td><strong>Domains</strong></td>
-                        <td>Giới hạn</td>
-                        <td>Không giới hạn</td>
-                        <td>Không giới hạn</td>
+                        <td>Multi-domain tracking</td>
+                        <td class="cross">✗</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
                     </tr>
                     <tr>
-                        <td><strong>Lịch sử & Export</strong></td>
-                        <td>Full Access</td>
-                        <td>Full Access</td>
-                        <td>Full Access</td>
+                        <td>History &amp; Export</td>
+                        <td class="check">Full access</td>
+                        <td class="check">Full access</td>
+                        <td class="check">Full access</td>
                     </tr>
                     <tr>
-                        <td><strong>Giá</strong></td>
-                        <td>Miễn phí</td>
-                        <td>Miễn phí</td>
-                        <td>90,000₫/tháng<br>800,000₫/năm</td>
+                        <td>Price</td>
+                        <td>Free</td>
+                        <td>Free</td>
+                        <td>From $3.99 / mo</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Section 10: Trial -->
+        <!-- 10. Trial & Upgrade -->
         <div class="section" id="trial">
-            <h2><span class="icon">🎁</span> 10. Dùng thử Pro — 30 ngày miễn phí</h2>
-
-            <img src="images/trial-badge.png" alt="Pro Trial Badge" class="section-image" loading="lazy">
-            <p class="image-caption">Tài khoản mới tự động nhận 30 ngày Pro Trial sau khi xác minh email</p>
+            <div class="section-header">
+                <div class="section-icon">🎁</div>
+                <h2>10. Pro Trial &amp; Upgrade</h2>
+            </div>
 
             <div class="trial-box">
-                <h4>🎁 Pro Trial — Dùng thử miễn phí 30 ngày</h4>
-                <p>Tài khoản mới đăng ký sẽ tự động nhận <strong>30 ngày Pro</strong> hoàn toàn miễn phí ngay sau khi xác minh email.</p>
-
+                <h4>30-Day Pro Trial — Free</h4>
+                <p>Every new account receives a full 30-day Pro Trial automatically after email verification. No credit card required.</p>
                 <div class="trial-features">
-                    <div class="trial-feature">
-                        <span>∞</span>
-                        Từ khóa không giới hạn
+                    <div class="trial-feat">
+                        <span class="val">∞</span>
+                        <span class="label">Unlimited keywords</span>
                     </div>
-                    <div class="trial-feature">
-                        <span>3</span>
-                        Chế độ kiểm tra đầy đủ
+                    <div class="trial-feat">
+                        <span class="val">3</span>
+                        <span class="label">All check modes</span>
                     </div>
-                    <div class="trial-feature">
-                        <span>📱</span>
-                        Mobile & Tablet simulation
+                    <div class="trial-feat">
+                        <span class="val">📱</span>
+                        <span class="label">Mobile &amp; Tablet sim</span>
                     </div>
-                    <div class="trial-feature">
-                        <span>🏆</span>
-                        Tất cả tính năng Pro
+                    <div class="trial-feat">
+                        <span class="val">30</span>
+                        <span class="label">Days, no card needed</span>
                     </div>
                 </div>
             </div>
 
-            <h3>Thanh toán Pro — VietQR</h3>
-            <img src="images/vietqr-payment.png" alt="VietQR Payment" class="section-image" loading="lazy">
-            <p class="image-caption">Thanh toán qua VietQR — chuyển khoản ngân hàng Việt Nam</p>
+            <h3>Upgrading to Pro</h3>
+            <p>Click the <strong>Upgrade</strong> button inside the extension. Choose your billing period, then your payment method:</p>
 
-            <p>Khi hết trial, nâng cấp lên Pro bằng cách quét mã QR với ứng dụng ngân hàng. Thanh toán tự động kích hoạt khi nhận được tiền.</p>
-
-            <div class="highlight">
-                <h4>💡 Cách thanh toán</h4>
-                <p style="margin:0">Click nút <strong>"Upgrade"</strong> bên trong extension → quét mã QR → chuyển khoản. Đăng ký thành công tức thì.</p>
+            <div class="payment-grid">
+                <div class="payment-card vn">
+                    <h4>Vietnam — Bank Transfer</h4>
+                    <div class="payment-price">90,000₫ / mo<br><span style="font-size:0.65em;color:var(--text-muted)">800,000₫ / yr · save 37%</span></div>
+                    <p>Pay via VietQR bank transfer. Scan the QR code with any Vietnamese banking app. Subscription activates automatically when payment is received.</p>
+                </div>
+                <div class="payment-card intl">
+                    <h4>International — Card</h4>
+                    <div class="payment-price">$3.99 / mo<br><span style="font-size:0.65em;color:var(--text-muted)">$29.99 / yr · save 37%</span></div>
+                    <p>Pay by credit or debit card via Polar (international payment processor). Tax handled automatically. Checkout opens in a new tab and closes on completion.</p>
+                </div>
             </div>
         </div>
 
-        <!-- Section 11: FAQ -->
+        <!-- 11. FAQ -->
         <div class="section" id="faq">
-            <h2><span class="icon">❓</span> 11. Hỏi đáp & Troubleshooting</h2>
-
-            <div class="faq-item">
-                <strong>Tôi có cần trả tiền để dùng extension không?</strong>
-                <p class="answer">Không! Tài khoản mới được <strong>30 ngày Pro miễn phí</strong> ngay sau khi xác minh email. Bạn có thể dùng mọi tính năng Pro trong thời gian trial. Khi hết trial, có thể nâng cấp hoặc tiếp tục dùng gói Free.</p>
+            <div class="section-header">
+                <div class="section-icon">❓</div>
+                <h2>11. FAQ &amp; Troubleshooting</h2>
             </div>
 
             <div class="faq-item">
-                <strong>Điều gì xảy ra khi trial hết hạn?</strong>
-                <p class="answer">Bạn sẽ thấy thông báo khi 30 ngày trial kết thúc. Có thể nâng cấp Pro qua VietQR (chuyển khoản ngân hàng) để tiếp tục. Nếu không nâng cấp, sẽ chuyển về gói Free (chỉ Sequential mode, 10 từ khóa/ngày).</p>
+                <div class="faq-q">Do I need to pay to use the extension?</div>
+                <div class="faq-a">No. New accounts get a full 30-day Pro Trial immediately after email verification — all Pro features, no card required. After the trial you can upgrade to Pro or continue on the Free tier.</div>
             </div>
 
             <div class="faq-item">
-                <strong>Tôi thấy badge "TRIAL · Xd". Điều đó có nghĩa gì?</strong>
-                <p class="answer">Badge "TRIAL · 7d" hiển thị số ngày còn lại trong trial miễn phí. Khi còn ≤7 ngày, một thanh nhắc nhở sẽ xuất hiện để khuyến khích bạn nâng cấp Pro.</p>
+                <div class="faq-q">What happens when my trial expires?</div>
+                <div class="faq-a">You'll see an in-app notification as the trial ends. Your account downgrades to the Free tier (Sequential mode, 10 keywords/day) unless you upgrade. All your history and data are preserved.</div>
             </div>
 
             <div class="faq-item">
-                <strong>Tôi nhận được thông báo "Device limit reached".</strong>
-                <p class="answer">Mỗi tài khoản giới hạn <strong>2 phiên hoạt động đồng thời</strong>. Hãy đăng xuất khỏi thiết bị khác, sau đó thử đăng nhập lại. Có thể quản lý các phiên từ menu dropdown người dùng.</p>
+                <div class="faq-q">My results say "Not Found" but I know I rank #45.</div>
+                <div class="faq-a">Check your <strong>Search Depth</strong> setting. If it's set to Top 20, the extension stops at position 20 and returns "Not Found" for anything deeper. Change it to Top 50 or Top 100 and re-run the check.</div>
             </div>
 
             <div class="faq-item">
-                <strong>Kết quả hiển thị "Not Found" nhưng tôi biết mình xếp hạng #45.</strong>
-                <p class="answer">Kiểm tra cài đặt <strong>"Search Depth"</strong>. Nếu đặt ở Top 20, extension sẽ dừng tìm kiếm ở vị trí 20 và trả về "Not Found". Đổi depth lên Top 50 hoặc Top 100 và kiểm tra lại.</p>
+                <div class="faq-q">The extension is stuck on "Initializing..."</div>
+                <div class="faq-a">Chrome may have put the background service worker to sleep. Click <code>END</code> then <code>START RANK CHECK</code> again. If it persists, reload the extension from <code>chrome://extensions/</code>.</div>
             </div>
 
             <div class="faq-item">
-                <strong>Extension bị kẹt ở "Initializing..."</strong>
-                <p class="answer">Điều này xảy ra khi Chrome cho background tab ngủ. Click <code>STOP</code> rồi nhấn <code>START</code> lại. Hoặc refresh extension.</p>
+                <div class="faq-q">My manual searches don't appear in History.</div>
+                <div class="faq-a">Auto-tracking only records searches made in <strong>Incognito mode</strong>. Check that "Allow in Incognito" is enabled in the extension's details page (<code>chrome://extensions/</code> → Rank Checker → Details).</div>
             </div>
 
             <div class="faq-item">
-                <strong>Tại sao tìm kiếm thủ công không hiện trong Lịch sử?</strong>
-                <p class="answer">Auto-tracking chỉ ghi nhận tìm kiếm trong <strong>Incognito Mode</strong> (để tránh personalized data làm sai lệch metrics). Đảm bảo "Allow in Incognito" đã được bật trong extension settings.</p>
+                <div class="faq-q">Rankings differ from what I see when searching manually.</div>
+                <div class="faq-a">SERP positions vary by data center, location, and device. For the most accurate comparison: test via an Incognito window and match the Device Type in the extension settings to your manual test environment.</div>
             </div>
 
             <div class="faq-item">
-                <strong>Thứ hạng khác với khi tôi kiểm tra thủ công.</strong>
-                <p class="answer">SERP positions thay đổi nhanh theo data center, location và device. Để có con số chính xác nhất, đảm bảo test qua <strong>Incognito window</strong> và khớp Device Type (Desktop/Mobile) trong extension settings với môi trường test thủ công của bạn.</p>
+                <div class="faq-q">I got "Device limit reached" when signing in.</div>
+                <div class="faq-a">Each account supports a maximum of <strong>2 concurrent sessions</strong>. Sign out from another device via the user menu (click your avatar → Logout), then sign in again.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Polar checkout tab didn't close after payment.</div>
+                <div class="faq-a">As of v1.1.7, the checkout tab closes automatically 3 seconds after a successful payment redirect. If it doesn't, you can close it manually — your subscription will activate in the background. Click <em>Refresh Session</em> in the user menu to confirm activation.</div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p><strong>Rank Checker v1.1.0</strong> — Đã phát hành 2026-04-20</p>
-            <p style="margin-top:12px">Hỗ trợ: <a href="mailto:thanhcongnguyen411@gmail.com">thanhcongnguyen411@gmail.com</a></p>
-            <p style="margin-top:16px">
-                <a href="terms.html">Điều khoản dịch vụ</a> ·
-                <a href="privacy.html">Chính sách bảo mật</a> ·
-                <a href="USER_GUIDE.html">Hướng dẫn sử dụng</a>
-            </p>
-            <p style="margin-top:20px; opacity:0.6">© 2026 Rank Checker Extension. All rights reserved.</p>
+            <p><strong>Rank Checker v1.1.7</strong> &mdash; Released May 2026</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="mailto:thanhcongnguyen411@gmail.com">thanhcongnguyen411@gmail.com</a>
+            </div>
+            <p style="margin-top:8px;opacity:0.5">&copy; 2026 Rank Checker Extension. All rights reserved.</p>
         </div>
+
     </div>
 </body>
 
