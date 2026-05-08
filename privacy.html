@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Rank Checker Extension</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #1e40af;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: #374151;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p,
+        li {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        .highlight {
+            background: #dbeafe;
+            padding: 15px;
+            border-left: 4px solid #2563eb;
+            margin: 20px 0;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last Updated: February 4, 2026</p>
+
+        <div class="highlight">
+            <strong>TL;DR:</strong> We don't collect, sell, or share your personal data. All data stays on your device.
+            We only use Better Auth (Cloudflare Workers) for authentication and SePay VietQR for payments.
+        </div>
+
+        <h2>1. Overview</h2>
+        <p>Rank Checker ("we", "our", "the extension") is committed to protecting your privacy. This policy explains how
+            we handle your data when you use our Google Chrome extension.</p>
+
+        <h2>2. Information We Collect</h2>
+
+        <h3>2.1 Account Information</h3>
+        <ul>
+            <li><strong>Email address:</strong> Required for account creation and authentication</li>
+            <li><strong>Password:</strong> Securely hashed, never stored in plain text</li>
+            <li><strong>User ID:</strong> Auto-generated unique identifier</li>
+        </ul>
+
+        <h3>2.2 Usage Data</h3>
+        <ul>
+            <li><strong>Keywords you check:</strong> Stored locally to show in history</li>
+            <li><strong>Domains you track:</strong> Saved for convenience</li>
+            <li><strong>Ranking history:</strong> Results from your rank checks</li>
+            <li><strong>Search preferences:</strong> Settings like Google domain, language, depth</li>
+        </ul>
+
+        <h3>2.3 Subscription Data</h3>
+        <ul>
+            <li><strong>Plan type:</strong> Free or Pro</li>
+            <li><strong>Subscription status:</strong> Active, canceled, etc.</li>
+            <li><strong>Billing date:</strong> Next payment date for Pro users</li>
+        </ul>
+
+        <h2>3. How We Store Data</h2>
+        <ul>
+            <li><strong>Local Storage:</strong> All ranking history, keywords, and preferences are stored locally in
+                your browser using Chrome's storage API</li>
+            <li><strong>Better Auth (Cloudflare Workers):</strong> Authentication data (email, PBKDF2-hashed password, session tokens) stored securely</li>
+            <li><strong>No Server-Side Storage:</strong> We do NOT store your ranking data on our servers</li>
+        </ul>
+
+        <h2>4. How We Use Your Data</h2>
+        <p>We use collected data solely to:</p>
+        <ul>
+            <li>Authenticate your account and maintain login sessions</li>
+            <li>Track your ranking history locally</li>
+            <li>Remember your search preferences</li>
+            <li>Provide Pro features if you have an active subscription</li>
+            <li>Process payments via SePay VietQR</li>
+        </ul>
+
+        <h2>5. Payment Processing</h2>
+        <p>Payment transactions are processed by <strong>SePay VietQR</strong> (Vietnamese bank transfer):</p>
+        <ul>
+            <li>We do NOT store credit card or bank account information</li>
+            <li>Payments are made via VietQR bank transfer to our TPBank account</li>
+            <li>We only receive confirmation of successful transfers via SePay webhook</li>
+            <li>SePay Privacy Policy: <a href="https://sepay.vn/privacy" target="_blank">https://sepay.vn/privacy</a></li>
+        </ul>
+
+        <h2>6. Data Sharing</h2>
+        <p><strong>We DO NOT:</strong></p>
+        <ul>
+            <li>❌ Sell your data to third parties</li>
+            <li>❌ Share data with advertisers</li>
+            <li>❌ Track your browsing activity outside the extension</li>
+            <li>❌ Collect analytics or telemetry</li>
+            <li>❌ Use your data for marketing purposes</li>
+        </ul>
+
+        <p><strong>We ONLY share data with:</strong></p>
+        <ul>
+            <li>✅ <strong>Better Auth (Cloudflare Workers):</strong> For authentication (required for login)</li>
+            <li>✅ <strong>SePay:</strong> For payment processing (only if you upgrade to Pro)</li>
+        </ul>
+
+        <h2>7. Third-Party Services</h2>
+
+        <h3>7.1 Better Auth / Cloudflare Workers (Authentication)</h3>
+        <ul>
+            <li>Purpose: User authentication and session management via email verification</li>
+            <li>Data shared: Email, password (PBKDF2-hashed), session tokens</li>
+            <li>Privacy Policy: <a href="https://cloudflare.com/privacy" target="_blank">https://cloudflare.com/privacy</a></li>
+        </ul>
+
+        <h3>7.2 SePay VietQR (Payment Processing)</h3>
+        <ul>
+            <li>Purpose: Subscription payment processing via Vietnamese bank transfer (VietQR)</li>
+            <li>Data shared: Email, payment amount (no bank details stored)</li>
+            <li>Privacy Policy: <a href="https://sepay.vn/privacy" target="_blank">https://sepay.vn/privacy</a></li>
+        </ul>
+
+        <h3>7.3 Google Search</h3>
+        <ul>
+            <li>Purpose: Performing rank checks</li>
+            <li>Data shared: Search queries you initiate via the extension</li>
+            <li>Privacy Policy: <a href="https://policies.google.com/privacy"
+                    target="_blank">https://policies.google.com/privacy</a></li>
+        </ul>
+
+        <h2>8. User Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+            <li><strong>Access your data:</strong> View all stored data in extension settings</li>
+            <li><strong>Delete your account:</strong> Contact us to permanently delete your account and data</li>
+            <li><strong>Export your data:</strong> Export ranking history to CSV/XLSX</li>
+            <li><strong>Opt-out:</strong> Uninstall the extension to stop all data collection</li>
+        </ul>
+
+        <h2>9. Data Retention</h2>
+        <ul>
+            <li><strong>Local history:</strong> Kept until you manually clear or uninstall extension</li>
+            <li><strong>Account data:</strong> Kept while account is active</li>
+            <li><strong>Deleted accounts:</strong> Data removed within 30 days</li>
+        </ul>
+
+        <h2>10. Security</h2>
+        <p>We implement security measures to protect your data:</p>
+        <ul>
+            <li>Passwords are hashed using industry-standard algorithms</li>
+            <li>Authentication tokens are stored securely</li>
+            <li>HTTPS encryption for all data transmission</li>
+            <li>No plain-text storage of sensitive data</li>
+        </ul>
+
+        <h2>11. Children's Privacy</h2>
+        <p>Our extension is not intended for users under 13 years old. We do not knowingly collect data from children.
+        </p>
+
+        <h2>12. Changes to This Policy</h2>
+        <p>We may update this privacy policy from time to time. Changes will be posted on this page with an updated
+            "Last Updated" date. Continued use of the extension after changes constitutes acceptance.</p>
+
+        <h2>13. Contact Us</h2>
+        <p>For privacy concerns or questions:</p>
+        <ul>
+            <li><strong>Email:</strong> ntcong.248820@gmail.com</li>
+            <li><strong>Response Time:</strong> Within 48 hours</li>
+        </ul>
+
+        <div class="footer">
+            <p>&copy; 2026 Rank Checker Extension. All rights reserved.</p>
+            <p><a href="terms.html">Terms of Service</a> | <a href="privacy.html">Privacy Policy</a> | <a
+                    href="USER_GUIDE.html">User Guide</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
