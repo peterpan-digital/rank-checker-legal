@@ -90,11 +90,11 @@
 <body>
     <div class="container">
         <h1>Privacy Policy</h1>
-        <p class="last-updated">Last Updated: February 4, 2026</p>
+        <p class="last-updated">Last Updated: September 19, 2026</p>
 
         <div class="highlight">
-            <strong>TL;DR:</strong> We don't collect, sell, or share your personal data. All data stays on your device.
-            We only use Better Auth (Cloudflare Workers) for authentication and SePay VietQR for payments.
+            <strong>TL;DR:</strong> Ranking history stays on your device. Account, coarse country, consent, and subscription
+            data are stored only to operate Rank Checker. We do not sell your data or collect in-extension analytics.
         </div>
 
         <h2>1. Overview</h2>
@@ -108,6 +108,10 @@
             <li><strong>Email address:</strong> Required for account creation and authentication</li>
             <li><strong>Password:</strong> Securely hashed, never stored in plain text</li>
             <li><strong>User ID:</strong> Auto-generated unique identifier</li>
+            <li><strong>Country code:</strong> Coarse two-letter country code recorded at signup from Cloudflare's request
+                context. We do not store your raw IP address for this purpose</li>
+            <li><strong>Product-feedback consent:</strong> Whether you opted in to product-research contact and when the
+                consent was recorded</li>
         </ul>
 
         <h3>2.2 Usage Data</h3>
@@ -129,7 +133,8 @@
         <ul>
             <li><strong>Local Storage:</strong> All ranking history, keywords, and preferences are stored locally in
                 your browser using Chrome's storage API</li>
-            <li><strong>Better Auth (Cloudflare Workers):</strong> Authentication data (email, PBKDF2-hashed password, session tokens) stored securely</li>
+            <li><strong>Better Auth (Cloudflare Workers):</strong> Authentication data (email, PBKDF2-hashed password,
+                session tokens), coarse country code, and product-feedback consent stored securely</li>
             <li><strong>No Server-Side Storage:</strong> We do NOT store your ranking data on our servers</li>
         </ul>
 
@@ -141,6 +146,8 @@
             <li>Remember your search preferences</li>
             <li>Provide Pro features if you have an active subscription</li>
             <li>Process payments via SePay VietQR</li>
+            <li>Measure aggregated signup and subscription outcomes by country, without in-extension telemetry</li>
+            <li>Contact you for product feedback only when you explicitly opt in. Every feedback email includes an opt-out</li>
         </ul>
 
         <h2>5. Payment Processing</h2>
@@ -159,12 +166,13 @@
             <li>❌ Share data with advertisers</li>
             <li>❌ Track your browsing activity outside the extension</li>
             <li>❌ Collect analytics or telemetry</li>
-            <li>❌ Use your data for marketing purposes</li>
+            <li>❌ Use account data for advertising or promotional marketing</li>
         </ul>
 
         <p><strong>We ONLY share data with:</strong></p>
         <ul>
             <li>✅ <strong>Better Auth (Cloudflare Workers):</strong> For authentication (required for login)</li>
+            <li>✅ <strong>Resend:</strong> For transactional account emails and opt-in product-feedback emails</li>
             <li>✅ <strong>SePay:</strong> For payment processing (only if you upgrade to Pro)</li>
         </ul>
 
@@ -173,18 +181,25 @@
         <h3>7.1 Better Auth / Cloudflare Workers (Authentication)</h3>
         <ul>
             <li>Purpose: User authentication and session management via email verification</li>
-            <li>Data shared: Email, password (PBKDF2-hashed), session tokens</li>
+            <li>Data shared: Email, password (PBKDF2-hashed), session tokens, coarse country code, feedback-consent record</li>
             <li>Privacy Policy: <a href="https://cloudflare.com/privacy" target="_blank">https://cloudflare.com/privacy</a></li>
         </ul>
 
-        <h3>7.2 SePay VietQR (Payment Processing)</h3>
+        <h3>7.2 Resend (Email Delivery)</h3>
+        <ul>
+            <li>Purpose: Deliver account verification, password reset, renewal, and consented product-feedback emails</li>
+            <li>Data shared: Email address and the content of the message being delivered</li>
+            <li>Privacy Policy: <a href="https://resend.com/legal/privacy-policy" target="_blank">https://resend.com/legal/privacy-policy</a></li>
+        </ul>
+
+        <h3>7.3 SePay VietQR (Payment Processing)</h3>
         <ul>
             <li>Purpose: Subscription payment processing via Vietnamese bank transfer (VietQR)</li>
             <li>Data shared: Email, payment amount (no bank details stored)</li>
             <li>Privacy Policy: <a href="https://sepay.vn/privacy" target="_blank">https://sepay.vn/privacy</a></li>
         </ul>
 
-        <h3>7.3 Google Search</h3>
+        <h3>7.4 Google Search</h3>
         <ul>
             <li>Purpose: Performing rank checks</li>
             <li>Data shared: Search queries you initiate via the extension</li>
@@ -199,6 +214,8 @@
             <li><strong>Delete your account:</strong> Contact us to permanently delete your account and data</li>
             <li><strong>Export your data:</strong> Export ranking history to CSV/XLSX</li>
             <li><strong>Opt-out:</strong> Uninstall the extension to stop all data collection</li>
+            <li><strong>Withdraw feedback consent:</strong> Use the opt-out included in each product-feedback email or
+                contact us. Withdrawal does not affect account service</li>
         </ul>
 
         <h2>9. Data Retention</h2>
